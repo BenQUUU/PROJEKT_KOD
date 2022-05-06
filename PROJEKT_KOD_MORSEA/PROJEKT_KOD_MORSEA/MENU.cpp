@@ -1,15 +1,54 @@
 #include "MENU.hpp"
+#include "PROGRAM.hpp"
+#include "PLIKI.hpp"
+#include <iostream>
+#include <string>
+#include <windows.h>
+#include <conio.h>
+#include <map>
+#include <vector>
+#include <sstream>
 using namespace std;
 
-
 Menu::Menu() {
-	wybor = 0;
-	dzialanie{
-		kodowanie = 0;
-
-	}
+	wybor = ' ';
 }
+void Menu::menu() {
+	cout << "Wczytywanie";
+	for (unsigned short i = 0; i < 3; i++) {
+		cout << ".";
+		Sleep(800);
+	}
+	system("cls");
 
-void Menu::wywolanie_menu()
-{
+	cout << "1. Kodowanie na kod morse'a" << endl;
+	cout << "2. Dekodowanie kodu morse'a" << endl;
+	cout << "3. Odczyt danych z pliku" << endl;
+	cout << "4. Koniec programu" << endl << endl;
+	cout << "Wybór: ";
+	wybor = _getch();
+
+	system("cls");
+}
+void Menu::wywolanie_menu() {
+	wczytaj_morsea();
+	wczytaj_ascii();
+	menu();
+	switch (wybor) {
+	case '1':
+		koder();
+		break;
+	case '2':
+		dekoder();
+		break;
+	case '3':
+		break;
+	case '4':
+		cout << endl << "Zakoñczono dzia³anie programu!" << endl;
+		exit(0);
+		break;
+	default:
+		cout << "Niepoprawny wybór!" << endl;
+		break;
+	}
 }

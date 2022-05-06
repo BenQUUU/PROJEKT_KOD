@@ -141,10 +141,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MENU.cpp" />
+    <ClCompile Include="PLIKI.cpp" />
     <ClCompile Include="PROGRAM.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MENU.hpp" />
+    <ClInclude Include="PLIKI.hpp" />
     <ClInclude Include="PROGRAM.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -5,7 +5,12 @@
 #include <string>
 #include <conio.h>
 #include <sstream>
+#include <cctype>
 using namespace std;
+
+Program::Program() {
+    napis = "";
+}
 
 void Program::wczytaj_morsea() {
     //spacja
@@ -56,23 +61,33 @@ void Program::wczytaj_ascii() {
     }
 }
 void Program::koder() {
-    string tempString = "";
     char tempChar = ' ';
+
+    cout << "Kodowanie: " << endl << endl;
 
     do {
         tempChar = _getch();
 
-        if (tempChar == 13) {
-            cout << "Zdanie w kodzie morsea: " << tempString << endl;
-            exit(1);
+        tempChar = tolower(tempChar);
+
+        if (mapaMorsea.find(tempChar) == mapaMorsea.end() && tempChar != 13) {
+            cout << "Podana litera nie znajduje sie w kodzie Morsea!" << endl;
+            cin.clear();
+            break;
         }
 
+        if (tempChar == 13) {
+            cout << "Zdanie w kodzie morsea: " << napis << endl;
+            exit(0);
+        }
+      
         cout << "Znak: " << tempChar << " kod: " << mapaMorsea.find(tempChar)->second << endl;
 
-        tempString += mapaMorsea.find(tempChar)->second;
+        napis += mapaMorsea.find(tempChar)->second + " ";
 
         cout << endl;
         cin.clear();
+        
     } while (1);
 }
 void Program::dekoder() {
@@ -80,19 +95,32 @@ void Program::dekoder() {
     string napis = "";
     vector<string> morse;
     
-    cout << "Wprowadz zdanie w kodzie morsea: ";
+    cout << "WprowadŸ zdanie w kodzie morsea: ";
     getline(cin, napis);
 
-    cout << "Przetlumaczone z kodu morsea: ";
+    cout << "Przet³umaczone z kodu morsea: ";
 
     morse = rozdziel(napis, ' ', kod);
 
     for (unsigned int i = 0; i < morse.size(); i++) {
-        if (i == 0) {
-            cout << char(mapaASCII.find(morse[i])->second - 32);
+        if (mapaASCII.find(morse[i]) == mapaASCII.end()) {
+            if (morse[i] != "") {
+                nieznalezione.push_back(morse[i]);
+            }
         }
         else {
-            cout << mapaASCII.find(morse[i])->second;
+            if (i == 0) {
+                cout << char(mapaASCII.find(morse[i])->second - 32);
+            }
+            else {
+                cout << mapaASCII.find(morse[i])->second;
+            }
+        }
+    }
+    if (nieznalezione.size() != 0) {
+        cout << endl << "Niepoprawnie wprowadzone litery: ";
+        for (unsigned int i = 0; i < nieznalezione.size(); i++) {
+            cout << "'" << nieznalezione[i] << "', ";
         }
     }
     cout << endl;
