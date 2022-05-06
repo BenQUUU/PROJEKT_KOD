@@ -6,7 +6,10 @@
 using namespace std;
 
 class Program {
+protected:
+	char reply;
 	string napis;
+	string napis_zakodowany;
 	vector<string> kod;
 	vector<string> nieznalezione;
 	map<char, string> mapaMorsea;
@@ -18,6 +21,8 @@ public:
 	void wczytaj_ascii();
 	void koder();
 	void dekoder();
+	void zapis();
+	void odczyt();
 };
 
 #endif // !PROGRAM.HPP

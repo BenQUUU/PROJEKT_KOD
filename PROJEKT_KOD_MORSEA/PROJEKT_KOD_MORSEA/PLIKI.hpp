@@ -2,13 +2,14 @@
 #define PLIKI_HPP
 #include <iostream>
 #include <string>
-#include "PROGRAM.hpp"
 using namespace std;
 
-class Pliki: public Program {
+class Pliki {
+protected:
+	//char reply;
 public:
-	void zapis();
-	void odczyt();
+	//void zapis();
+	//void odczyt();
 };
 
 #endif // !PLIKI_HPP

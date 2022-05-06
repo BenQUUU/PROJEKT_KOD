@@ -6,10 +6,13 @@
 #include <conio.h>
 #include <sstream>
 #include <cctype>
+#include <fstream>
 using namespace std;
 
 Program::Program() {
     napis = "";
+    napis_zakodowany = "";
+    reply = ' ';
 }
 
 void Program::wczytaj_morsea() {
@@ -76,14 +79,16 @@ void Program::koder() {
             break;
         }
 
+        napis += tempChar;
+
         if (tempChar == 13) {
-            cout << "Zdanie w kodzie morsea: " << napis << endl;
-            exit(0);
+            cout << "Zdanie w kodzie morsea: " << napis_zakodowany << endl;
+            break;
         }
       
         cout << "Znak: " << tempChar << " kod: " << mapaMorsea.find(tempChar)->second << endl;
 
-        napis += mapaMorsea.find(tempChar)->second + " ";
+        napis_zakodowany += mapaMorsea.find(tempChar)->second + " ";
 
         cout << endl;
         cin.clear();
@@ -92,15 +97,14 @@ void Program::koder() {
 }
 void Program::dekoder() {
     cin.clear();
-    string napis = "";
     vector<string> morse;
     
     cout << "WprowadŸ zdanie w kodzie morsea: ";
-    getline(cin, napis);
+    getline(cin, napis_zakodowany);
 
     cout << "Przet³umaczone z kodu morsea: ";
 
-    morse = rozdziel(napis, ' ', kod);
+    morse = rozdziel(napis_zakodowany, ' ', kod);
 
     for (unsigned int i = 0; i < morse.size(); i++) {
         if (mapaASCII.find(morse[i]) == mapaASCII.end()) {
@@ -111,9 +115,11 @@ void Program::dekoder() {
         else {
             if (i == 0) {
                 cout << char(mapaASCII.find(morse[i])->second - 32);
+                napis += char(mapaASCII.find(morse[i])->second - 32);
             }
             else {
                 cout << mapaASCII.find(morse[i])->second;
+                napis += mapaASCII.find(morse[i])->second;
             }
         }
     }
@@ -124,6 +130,52 @@ void Program::dekoder() {
         }
     }
     cout << endl;
+}
+void Program::zapis() {
+    do {
+        cout << "Czy chcesz zapisaæ tekst do pliku?(t,n): ";
+        fflush(stdin);
+        reply = getchar();
+        reply = tolower(reply);
+    } while ((reply != 't') && (reply != 'n'));
+
+    if (reply == 'n') {
+        cout << endl << "Pomyœlnie zakoñczono dzia³anie programu" << endl;
+        exit(0);
+    }
+    else {
+        ofstream plik1;
+        plik1.open("zakodowane.txt", ios::app);
+
+        if (!plik1) {
+            cout << "B³¹d otwarcia pliku!" << endl;
+            exit(0);
+        }
+
+        plik1.write(napis_zakodowany.c_str(), napis_zakodowany.size() + 1);
+        plik1 << '\n';
+
+        plik1.close();
+
+        ofstream plik2;
+
+        plik2.open("odkodowane.txt", ios::app);
+
+        if (!plik2) {
+            cout << "B³¹d otwarcia pliku!" << endl;
+            exit(0);
+        }
+
+        plik2.write(napis.c_str(), napis.size() + 1);
+        plik2 << '\n';
+
+        plik2.close();
+
+        cout << endl << "Pomyœlnie zapisano tekst" << endl;
+    }
+}
+void Program::odczyt() {
+
 }
 vector<string> Program::rozdziel(const string& napis, char znak, vector<string> elementy) {
     stringstream strumien(napis);

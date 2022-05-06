@@ -1,6 +1,5 @@
 #include "MENU.hpp"
 #include "PROGRAM.hpp"
-#include "PLIKI.hpp"
 #include <iostream>
 #include <string>
 #include <windows.h>
@@ -37,9 +36,11 @@ void Menu::wywolanie_menu() {
 	switch (wybor) {
 	case '1':
 		koder();
+		zapis();
 		break;
 	case '2':
 		dekoder();
+		zapis();
 		break;
 	case '3':
 		break;
