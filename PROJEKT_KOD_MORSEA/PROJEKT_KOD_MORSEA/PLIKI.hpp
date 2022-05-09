@@ -6,10 +6,13 @@ using namespace std;
 
 class Pliki {
 protected:
-	//char reply;
+	char reply;
+	string dane;
 public:
-	//void zapis();
-	//void odczyt();
+	Pliki();
+	void zapis(string napis_a, string napis_z);
+	void odczyt();
+	void usun();
 };
 
 #endif // !PLIKI_HPP

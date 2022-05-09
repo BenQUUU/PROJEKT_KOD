@@ -7,12 +7,12 @@
 #include <sstream>
 #include <cctype>
 #include <fstream>
+#include <iomanip>
 using namespace std;
 
 Program::Program() {
     napis = "";
     napis_zakodowany = "";
-    reply = ' ';
 }
 
 void Program::wczytaj_morsea() {
@@ -57,12 +57,31 @@ void Program::wczytaj_morsea() {
     mapaMorsea['y'] = "-.--";
     mapaMorsea['z'] = "--..";
 }
+
 void Program::wczytaj_ascii() {
     for (auto& a: mapaMorsea) {
         pair<string, char> para(a.second, a.first);
         mapaASCII.insert(para);
     }
 }
+
+void Program::wyswietl_mape() {
+    int licznik = 1;
+    const int szerokosc = 8;
+
+    for (auto& x : mapaMorsea) {
+        if (x.first != ' ') {
+            cout << x.first << " = " << setw(szerokosc) << left << x.second;
+            ++licznik;
+            if (licznik > 6) {
+                cout << endl;
+                licznik = 1;
+            }
+        }
+    }
+    cout << endl << endl;
+}
+
 void Program::koder() {
     char tempChar = ' ';
 
@@ -95,6 +114,7 @@ void Program::koder() {
         
     } while (1);
 }
+
 void Program::dekoder() {
     cin.clear();
     vector<string> morse;
@@ -102,7 +122,7 @@ void Program::dekoder() {
     cout << "WprowadŸ zdanie w kodzie morsea: ";
     getline(cin, napis_zakodowany);
 
-    cout << "Przet³umaczone z kodu morsea: ";
+    cout << endl << "Przet³umaczone z kodu morsea: ";
 
     morse = rozdziel(napis_zakodowany, ' ', kod);
 
@@ -131,52 +151,7 @@ void Program::dekoder() {
     }
     cout << endl;
 }
-void Program::zapis() {
-    do {
-        cout << "Czy chcesz zapisaæ tekst do pliku?(t,n): ";
-        fflush(stdin);
-        reply = getchar();
-        reply = tolower(reply);
-    } while ((reply != 't') && (reply != 'n'));
 
-    if (reply == 'n') {
-        cout << endl << "Pomyœlnie zakoñczono dzia³anie programu" << endl;
-        exit(0);
-    }
-    else {
-        ofstream plik1;
-        plik1.open("zakodowane.txt", ios::app);
-
-        if (!plik1) {
-            cout << "B³¹d otwarcia pliku!" << endl;
-            exit(0);
-        }
-
-        plik1.write(napis_zakodowany.c_str(), napis_zakodowany.size() + 1);
-        plik1 << '\n';
-
-        plik1.close();
-
-        ofstream plik2;
-
-        plik2.open("odkodowane.txt", ios::app);
-
-        if (!plik2) {
-            cout << "B³¹d otwarcia pliku!" << endl;
-            exit(0);
-        }
-
-        plik2.write(napis.c_str(), napis.size() + 1);
-        plik2 << '\n';
-
-        plik2.close();
-
-        cout << endl << "Pomyœlnie zapisano tekst" << endl;
-    }
-}
-void Program::odczyt() {
-
-}
 vector<string> Program::rozdziel(const string& napis, char znak, vector<string> elementy) {
     stringstream strumien(napis);
     string element = "";

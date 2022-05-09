@@ -1,5 +1,6 @@
 #include "MENU.hpp"
 #include "PROGRAM.hpp"
+#include "PLIKI.hpp"
 #include <iostream>
 #include <string>
 #include <windows.h>
@@ -23,7 +24,8 @@ void Menu::menu() {
 	cout << "1. Kodowanie na kod morse'a" << endl;
 	cout << "2. Dekodowanie kodu morse'a" << endl;
 	cout << "3. Odczyt danych z pliku" << endl;
-	cout << "4. Koniec programu" << endl << endl;
+	cout << "4. Usuñ zawartoœæ z plików" << endl;
+	cout << "5. Koniec programu" << endl << endl;
 	cout << "Wybór: ";
 	wybor = _getch();
 
@@ -36,15 +38,21 @@ void Menu::wywolanie_menu() {
 	switch (wybor) {
 	case '1':
 		koder();
-		zapis();
+		zapis(napis, napis_zakodowany);
 		break;
 	case '2':
+		wyswietl_mape();
 		dekoder();
-		zapis();
+		zapis(napis, napis_zakodowany);
 		break;
 	case '3':
+		cout << "Zapisany tekst w pliku: " << endl;
+		odczyt();
 		break;
 	case '4':
+		usun();
+		break;
+	case '5':
 		cout << endl << "Zakoñczono dzia³anie programu!" << endl;
 		exit(0);
 		break;

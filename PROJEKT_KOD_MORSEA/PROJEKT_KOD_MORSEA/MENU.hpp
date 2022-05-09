@@ -3,9 +3,10 @@
 #include <iostream>
 #include <string>
 #include "PROGRAM.hpp"
+#include "PLIKI.hpp"
 using namespace std;
 
-class Menu: public Program {
+class Menu: public Program, public Pliki {
 private:
 	char wybor;
 public:
