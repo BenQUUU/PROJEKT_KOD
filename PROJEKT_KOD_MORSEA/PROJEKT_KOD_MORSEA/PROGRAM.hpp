@@ -6,6 +6,7 @@
 using namespace std;
 
 class Program {
+//pola klasy Program
 protected:
 	string napis;
 	string napis_zakodowany;
@@ -14,6 +15,7 @@ protected:
 	map<char, string> mapaMorsea;
 	map<string, char> mapaASCII;
 	vector<string> rozdziel(const string& napis, char znak, vector<string> elementy);
+//funkcje klasy Program
 public:
 	Program();
 	void wczytaj_morsea();
@@ -22,6 +24,5 @@ public:
 	void koder();
 	void dekoder();
 };
-
 #endif // !PROGRAM.HPP
 

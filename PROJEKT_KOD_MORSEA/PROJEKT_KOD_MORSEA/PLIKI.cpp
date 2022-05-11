@@ -7,41 +7,43 @@
 #include <conio.h>
 #include <map>
 #include <vector>
-#include <sstream>
 #include <fstream>
 using namespace std;
 
+//konstruktor domyœlny zeruj¹cy pola
 Pliki::Pliki() {
 	reply = ' ';
 	dane = "";
 }
-
+//funkcja zapisuj¹ca dane do plików
 void Pliki::zapis(string napis_a, string napis_z) {
 	cout << endl;
-	do {
+
+	do { //zapytanie czy chce zapisaæ tekst do plików
 		cout << "Czy chcesz zapisaæ tekst do pliku?(t,n): ";
 		fflush(stdin);
 		reply = getchar();
 		reply = tolower(reply);
 	} while ((reply != 't') && (reply != 'n'));
 
-	if (reply == 'n') {
+	if (reply == 'n') { //jeœli nie to koñczy dzia³anie programu
 		cout << "Zakoñczono pomyœlnie dzia³anie programu" << endl;
 		exit(0);
 	}
 	else {
-		ofstream plik;
-		plik.open("zakodowane.txt", ios::app);
+		ofstream plik; //strumieñ do zapisu
+		plik.open("zakodowane.txt", ios::app); //w trybie dopisywania danych do pliku
 
-		if (!plik) {
+		if (!plik) { //jeœli nie mo¿e otworzyæ pliku do koñczy dzia³anie programu
 			cout << "B³¹d otwarcia pliku!" << endl;
 			exit(0);
 		}
 		plik << '\n';
-		plik.write(napis_z.c_str(), napis_z.size() + 1);
+		plik.write(napis_z.c_str(), napis_z.size() + 1); //zapis blokowy danych do pliku
 
-		plik.close();
+		plik.close();//zamkniêcie pliku
 
+		//to samo robi dla pliku w którym znajduj¹ siê dane odkodowane
 		plik.open("odkodowane.txt", ios::app);
 
 		if (!plik) {
@@ -56,24 +58,26 @@ void Pliki::zapis(string napis_a, string napis_z) {
 	}
 	cout << endl << "Pomyœlnie zapisano tekst do plików" << endl;
 }
+//funkcja odczytuj¹ca dane z plików
 void Pliki::odczyt() {
-	ifstream plik2;
+	ifstream plik2; //strumieñ do odczytu
 	plik2.open("zakodowane.txt");
 
-	if (!plik2) {
+	if (!plik2) { //jeœli nie mo¿e otworzyæ pliku do koñczy dzia³anie programu
 		cout << "B³¹d odczytu danych!" << endl;
 		exit(0);
 	}
 
-	while (!plik2.eof()) {
-		getline(plik2, dane);
-		cout << dane << endl;
+	while (!plik2.eof()) { //pêtla dopóki nie dojdzie do koñca pliku
+		getline(plik2, dane); //wczytujê tekst linia po linii 
+		cout << dane << endl; //wyœwietla zdanie
 	}
+
+	plik2.close();//zamkniêcie pliku
 
 	cout << endl << "co oznacza: " << endl;
 
-	plik2.close();
-
+	//to samo robi dla pliku z danymi odkodowanymi
 	plik2.open("odkodowane.txt");
 
 	if (!plik2) {
@@ -88,17 +92,18 @@ void Pliki::odczyt() {
 
 	plik2.close();
 }
-
+//funkcja usuwaj¹ca zawartoœæ z plików
 void Pliki::usun() {
-	fstream plik3;
-	plik3.open("zakodowane.txt", ios::in | ios::out | ios::trunc);
+	fstream plik3; //strumieñ w trybie odczytu/zapisu
+	plik3.open("zakodowane.txt", ios::in | ios::out | ios::trunc); //zawartoœæ jest tracona podczas otwierania
 
-	if (!plik3) {
+	if (!plik3) { //jeœli nie mo¿e otworzyæ pliku do koñczy dzia³anie programu
 		cout << "B³¹d odczytu pliku!" << endl;
 	}
 
-	plik3.close();
+	plik3.close(); //zamkniêcie pliku
 
+	//to samo robi dla drugiego pliku
 	plik3.open("odkodowane.txt", ios::in | ios::out | ios::trunc);
 
 	if (!plik3) {
@@ -107,5 +112,5 @@ void Pliki::usun() {
 
 	plik3.close();
 
-	cout << "Usuniêto zawartoœæ z plików!" << endl;
+	cout << "Usuniêto zawartoœæ z plików!" << endl; //komunikat o powodzeniu operacji
 }

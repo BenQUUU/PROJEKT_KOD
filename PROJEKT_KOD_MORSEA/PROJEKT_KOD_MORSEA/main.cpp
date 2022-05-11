@@ -11,10 +11,11 @@ using namespace std;
 
 int main()
 {
-    setlocale(LC_CTYPE, "Polish");
+    setlocale(LC_CTYPE, "Polish"); //polskie znaki w konsoli
 
-    Menu b;
-    b.wywolanie_menu();
+    //program
+    Menu menu;
+    menu.wywolanie_menu();
 
     return 0;
 }
