@@ -14,8 +14,12 @@ int main()
     setlocale(LC_CTYPE, "Polish"); //polskie znaki w konsoli
 
     //program
-    Menu menu;
-    menu.wywolanie_menu();
+    for (;;) {
+        Menu menu;
+        menu.wywolanie_menu();
+    }
+    //Menu menu;
+    //menu.wywolanie_menu();
 
     return 0;
 }

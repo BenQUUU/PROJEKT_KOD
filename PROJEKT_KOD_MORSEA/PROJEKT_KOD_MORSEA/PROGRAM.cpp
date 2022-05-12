@@ -100,26 +100,25 @@ void Program::koder() {
 
         //wprowadzenie niepoprawnej litery wyœwietla b³¹d
         if (mapaMorsea.find(tempChar) == mapaMorsea.end() && tempChar != 13) {
-            cout << "Podana litera nie znajduje sie w kodzie Morsea!" << endl;
+            cout << "Podana litera nie znajduje sie w kodzie Morsea!" << endl << endl;
             cin.clear();
-            break;
         }
+        else {
+            napis += tempChar;
 
-        napis += tempChar;
+            //program dzia³a dopóki u¿ytkownik nie naciœnie ENTER
+            if (tempChar == 13) {
+                cout << "Zdanie w kodzie morsea: " << napis_zakodowany << endl;
+                break;
+            }
 
-        //program dzia³a dopóki u¿ytkownik nie naciœnie ENTER
-        if (tempChar == 13) {
-            cout << "Zdanie w kodzie morsea: " << napis_zakodowany << endl;
-            break;
+            cout << "Znak: " << tempChar << " kod: " << mapaMorsea.find(tempChar)->second << endl;
+
+            napis_zakodowany += mapaMorsea.find(tempChar)->second + " ";
+
+            cout << endl;
+            cin.clear();
         }
-      
-        cout << "Znak: " << tempChar << " kod: " << mapaMorsea.find(tempChar)->second << endl;
-
-        napis_zakodowany += mapaMorsea.find(tempChar)->second + " ";
-
-        cout << endl;
-        cin.clear();
-        
     } while (1);
 }
 //funkcja dekoduj¹ca ci¹g kropek i kresek na kod ASCII
@@ -129,6 +128,8 @@ void Program::dekoder() {
     string tekst = "";
     
     cout << "WprowadŸ zdanie w kodzie morsea: ";
+    //getline(cin, tekst);
+    cin.ignore();
     getline(cin, tekst); //u¿ytkownik wprowadza tekst
 
     cout << endl << "Przet³umaczone z kodu morsea: ";

@@ -19,7 +19,7 @@ void Menu::menu() {
 	cout << "Wczytywanie";
 	for (unsigned short i = 0; i < 3; i++) {
 		cout << ".";
-		Sleep(800); //wyœwietla kropkê co 800 milisekund
+		Sleep(400); //wyœwietla kropkê co 400 milisekund
 	}
 	system("cls");
 

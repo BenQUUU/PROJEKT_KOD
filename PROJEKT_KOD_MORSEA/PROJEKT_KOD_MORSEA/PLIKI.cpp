@@ -24,11 +24,11 @@ void Pliki::zapis(string napis_a, string napis_z) {
 		fflush(stdin);
 		reply = getchar();
 		reply = tolower(reply);
+		cin.ignore();
 	} while ((reply != 't') && (reply != 'n'));
 
 	if (reply == 'n') { //jeœli nie to koñczy dzia³anie programu
-		cout << "Zakoñczono pomyœlnie dzia³anie programu" << endl;
-		exit(0);
+		cout << endl << "Powrót do menu g³ównego..." << endl << endl;
 	}
 	else {
 		ofstream plik; //strumieñ do zapisu
@@ -55,8 +55,9 @@ void Pliki::zapis(string napis_a, string napis_z) {
 		plik.write(napis_a.c_str(), napis_a.size() + 1);
 
 		plik.close();
+
+		cout << endl << "Pomyœlnie zapisano tekst do plików" << endl << endl;
 	}
-	cout << endl << "Pomyœlnie zapisano tekst do plików" << endl;
 }
 //funkcja odczytuj¹ca dane z plików
 void Pliki::odczyt() {
@@ -89,8 +90,12 @@ void Pliki::odczyt() {
 		getline(plik2, dane);
 		cout << dane << endl;
 	}
+	
+	cout << endl;
 
 	plik2.close();
+
+	system("pause");
 }
 //funkcja usuwaj¹ca zawartoœæ z plików
 void Pliki::usun() {
@@ -112,5 +117,5 @@ void Pliki::usun() {
 
 	plik3.close();
 
-	cout << "Usuniêto zawartoœæ z plików!" << endl; //komunikat o powodzeniu operacji
+	cout << "Usuniêto zawartoœæ z plików!" << endl << endl; //komunikat o powodzeniu operacji
 }
