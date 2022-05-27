@@ -18,8 +18,6 @@ int main()
         Menu menu;
         menu.wywolanie_menu();
     }
-    //Menu menu;
-    //menu.wywolanie_menu();
 
     return 0;
 }

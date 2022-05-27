@@ -23,9 +23,12 @@ void Menu::menu() {
 	}
 	system("cls");
 
+	cout << "KODOWANIE/DEKODOWANIE KODU MORSE'A" << endl;
+	cout << "==================================" << endl << endl;
+
 	cout << "1. Kodowanie na kod morse'a" << endl;
 	cout << "2. Dekodowanie kodu morse'a" << endl;
-	cout << "3. Odczyt danych z pliku" << endl;
+	cout << "3. Odczyt danych z plików" << endl;
 	cout << "4. Usuñ zawartoœæ z plików" << endl;
 	cout << "5. Koniec programu" << endl << endl;
 	cout << "Wybór: ";
